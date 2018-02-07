@@ -1,0 +1,20 @@
+{%  extends 'mainapp/base.html' %}
+{% load staticfiles  %}
+{% block content %}
+<ul class="breadcrumb">
+    <li><a href="{% url 'main:index' %}">Главная</a></li>
+    <li class="active">Edit</li>
+</ul>
+<div class="form">
+    <h3>Редактирование данных:</h3>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{edit_form.as_table}}
+        </table>
+        <br>
+        <a href="{% url 'auth:change' %}">Изменить пароль</a>
+        <input class="right" type="submit" value="Сохранить">
+    </form>
+</div>
+{% endblock %}

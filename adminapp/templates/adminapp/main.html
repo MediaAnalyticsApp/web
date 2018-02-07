@@ -1,0 +1,23 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<ul class="breadcrumb">
+    <li><a href="{% url 'main:index' %}">Главная</a></li>
+    <li class="active">Admin</li>
+</ul>
+<div class="front_menu left">
+    <a href="">Общая статистика</a>
+    <a href="">Ежедневная статистика</a>
+    <p>Справочники</p>
+    <ul>
+        <li><a href="{% url 'myadmin:persons' %}">Личности</a></li>
+        <li><a href="{% url 'myadmin:key_words' %}">Ключевые слова</a></li>
+        <li><a href="{% url 'myadmin:sites' %}">Сайты</a></li>
+        <li><a href="{% url 'myadmin:pages' %}">Страницы</a></li>
+        <li><a href="{% url 'myadmin:person_page_ranks' %}">Рейтинг</a></li>
+        <li><a href="{% url 'myadmin:site_link' %}">Подробно</a></li>
+    </ul>
+</div>
+{% block main %}
+{% endblock %}
+{% endblock %}

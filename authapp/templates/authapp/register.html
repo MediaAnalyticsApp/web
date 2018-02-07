@@ -1,0 +1,21 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<ul class="breadcrumb">
+    <li><a href="{% url 'main:index' %}">Главная</a></li>
+    <li class="active">Register</li>
+</ul>
+<div class="form">
+    <h3>Регистрация:</h3>
+    <p></p>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ register_form.as_table}}
+        </table>
+        <br>
+        <a href="{% url 'main:index' %}">На главную</a>
+        <input class="right" type="submit" value="Регистрация">
+    </form>
+</div>
+{% endblock %}

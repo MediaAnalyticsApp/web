@@ -1,0 +1,23 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<ul class="breadcrumb">
+    <li><a href="{% url 'main:index' %}">Главная</a></li>
+    <li class="active">Login</li>
+</ul>
+<div class="form">
+    <h3>Авторизация:</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% if next %}
+        <input type="hidden" name="next" value="{{next}}">
+        {% endif %}
+        <table>
+            {{ login_form.as_table }}
+        </table>
+        <br>
+        <a href="{% url 'auth:register' %}">Регистрация</a>
+        <input class="right" type="submit" value="Войти">
+    </form>
+</div>
+{% endblock %}

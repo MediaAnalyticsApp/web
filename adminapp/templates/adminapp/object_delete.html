@@ -1,0 +1,15 @@
+{% extends 'adminapp/main.html' %}
+{% load staticfiles %}
+{% block main %}
+<div class="items">
+    <div>
+        Уверены, что хотите удалить <strong>{{object.name}}</strong>?
+    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <hr>
+        <input type="submit" value="удалить">
+        <input type="button" onclick="location.href='{% url link %}'" value="к списку">
+    </form>
+</div>
+{% endblock %}

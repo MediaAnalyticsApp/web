@@ -1,0 +1,37 @@
+<nav class="menu">
+    <ul>
+        {% if user.is_authenticated %}
+        {% url 'auth:edit' as auth_link %}
+        <li>
+            {% if request.path == auth_link %}
+            <a href="{% url 'auth:edit' %}" class="active">{{user.first_name|default:"Пользователь"|title}}</a>
+            {% else %}
+            <a href="{% url 'auth:edit' %}">{{user.first_name|default:"Пользователь"|title}}</a>
+            {% endif %}
+        </li>
+        {% endif %}
+        {% if user.is_superuser %}
+        {% url 'myadmin:main' as auth_link %}
+        <li>
+            {% if request.path == auth_link %}
+            <a href="{% url 'myadmin:main' %}" class="active">Админ</a>
+            {% else %}
+            <a href="{% url 'myadmin:main' %}">Админ</a>
+            {% endif %}
+        </li>
+        {% endif %}
+        <li>
+            {% if user.is_authenticated %}
+            <a href="{% url 'auth:logout' %}">Выйти</a>
+            {% else %}
+            {% url 'auth:login' as login_link %}
+            {% if request.path == login_link %}
+            <a href="{% url 'auth:login' %}" class="active">Войти</a>
+            {% else %}
+            <a href="{% url 'auth:login' %}">Войти</a>
+            {% endif %}
+            {% endif %}
+        </li>
+    </ul>
+</nav>
+

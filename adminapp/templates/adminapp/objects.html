@@ -1,0 +1,41 @@
+{% extends 'adminapp/main.html' %}
+{% load staticfiles %}
+{% block main %}
+<div class="objects_list left">
+    <div class="box">
+        <h3>Справочник {{hdbk}}</h3>
+        <table class="table">
+            <tr>
+                <th><h4>{{caption}}</h4></th>
+            </tr>
+            {% for object in object_list %}
+            <tr>
+                <td>
+                   {% comment %} <!--{% if name == 'person_page_rank' %}-->
+                    <!--{{object.rank}}-->
+                    <!--{% endif %}-->
+                    <!--{% if name == 'page' %}-->
+                    <!--{{object.url}}-->
+                    <!--{% else %}-->
+                    <!--{{object.name}}-->{% endcomment %}
+                    {% if name == 'person_page_rank' %}
+                    {{object.Rank}}
+                    {% endif %}
+                    {% if name == 'page' %}
+                    {{object.Url}}
+                    {% else %}
+                    {{object.Name}}
+                    {% endif %}
+                    <a href="{% url link_delete object.pk %}">delete</a>
+                    <a href="{% url link_update object.pk %}">edit</a>
+                </td>
+            </tr>
+            {% endfor%}
+        </table>
+        <br>
+        <div>
+            <button onclick="location.href='{% url link_create %}'">Добавить</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
