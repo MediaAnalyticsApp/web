@@ -15,8 +15,9 @@
         <table>
             {{ login_form.as_table }}
         </table>
-        <br>
+        <hr>
         <a href="{% url 'auth:register' %}">Регистрация</a>
+        <a href="{% url 'auth:password_reset' %}">Забыли пароль?</a>
         <input class="right" type="submit" value="Войти">
     </form>
 </div>

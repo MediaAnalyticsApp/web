@@ -25,6 +25,12 @@ urlpatterns = [
             name='person_page_rank_update'),
     re_path(r'^person_page_ranks/delete/(?P<pk>\d+)/$', adminapp.PersonPageRankDeleteView.as_view(),
             name='person_page_rank_delete'),
-    path('sites/link/', adminapp.sites_link, name='site_link'),
+    path('sites/link/', adminapp.SitesLinkView.as_view(), name='site_link'),
+    # path('sites/link/', adminapp.sites_link, name='site_link'),
     path('sites/link/renew/', adminapp.links_renew, name='link_renew'),
+    path('sites/export/', adminapp.export, name='export'),
+    path('sites/detail/', adminapp.SiteDetail.as_view(), name='site_detail'),
+    path('sites/detail/view/', adminapp.site_detail_view, name='site_detail_view'),
+    # re_path('sites/detail/view/(?P<pk>\d+)/$', adminapp.detail_renew, name='site_detail_view'),
 ]
+

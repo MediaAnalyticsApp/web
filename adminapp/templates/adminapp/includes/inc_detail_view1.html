@@ -1,0 +1,24 @@
+<tr>
+    <th>Название сайта</th>
+    <th>Сcылка</th>
+    <th>Дата создания</th>
+    <th>Дата посещения</th>
+</tr>
+
+<tr>
+    <td>
+        <select name="" id="">
+            {% for object in site %}
+            <option value="{{ object.id }}" >{{ object.name }}</option>
+            {% endfor %}
+        </select>
+    </td>
+</tr>
+{% for object in object_list %}
+<tr>
+    <td></td>
+    <td>{{ object.url }}</td>
+    <td>{{ object.found_date_time }}</td>
+    <td>{{ object.last_scan_date}}</td>
+</tr>
+{% endfor %}

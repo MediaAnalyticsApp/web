@@ -4,14 +4,15 @@
 <div class="objects_list left">
     <div class="box">
         <h3>Справочник {{hdbk}}</h3>
+        <br>
         <table class="table">
             <tr>
-                <th><h4>{{caption}}</h4></th>
+                <th>{{caption}}</th>
             </tr>
             {% for object in object_list %}
             <tr>
                 <td>
-                   {% comment %} <!--{% if name == 'person_page_rank' %}-->
+                    {% comment %} <!--{% if name == 'person_page_rank' %}-->
                     <!--{{object.rank}}-->
                     <!--{% endif %}-->
                     <!--{% if name == 'page' %}-->
@@ -19,12 +20,12 @@
                     <!--{% else %}-->
                     <!--{{object.name}}-->{% endcomment %}
                     {% if name == 'person_page_rank' %}
-                    {{object.Rank}}
+                    {{object.rank}}
                     {% endif %}
                     {% if name == 'page' %}
-                    {{object.Url}}
+                    {{object.url}}
                     {% else %}
-                    {{object.Name}}
+                    {{object.name}}
                     {% endif %}
                     <a href="{% url link_delete object.pk %}">delete</a>
                     <a href="{% url link_update object.pk %}">edit</a>
@@ -32,10 +33,11 @@
             </tr>
             {% endfor%}
         </table>
-        <br>
-        <div>
-            <button onclick="location.href='{% url link_create %}'">Добавить</button>
-        </div>
+        <hr>
+        <button onclick="location.href='{% url link_create %}'">Добавить</button>
+        {% if request.path == '/myadmin/pages/read/' %}
+        <button onclick="location.href='{% url 'adminapp:export' %}'">Экспорт</button>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

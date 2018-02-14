@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,10 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'import_export',
     'mainapp',
     'adminapp',
     'authapp',
-    'django_tables2',
+    # 'django_tables2',
 ]
 
 MIDDLEWARE = [
@@ -110,7 +112,7 @@ DATABASES = {
 #         'NAME': 'mediaanalitycs',
 #         'USER': 'analitycs',
 #         'PASSWORD': 'analit123!',
-#         'HOST': '54.64.85.75',
+#         'HOST': '52.199.81.36',
 #         'PORT': '9906',
 #         'OPTIONS': {
 #             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -155,13 +157,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(PROJECT_DIR, 'static'),
 )
-STATIC_ROOT = os.path.join(BASE_DIR, 'all_static')
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 
@@ -169,3 +173,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 LOGIN_URL = '/auth/login/'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True

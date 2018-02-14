@@ -44,3 +44,4 @@ person_page_rank = {
     'link_update': 'myadmin:person_page_rank_update',
     'name': 'person_page_rank'
 }
+

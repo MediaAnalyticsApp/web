@@ -1,64 +1,57 @@
 from django.db import models
 
 
-class Persons(models.Model):
-    Name = models.CharField(max_length=2048, unique=True)
-
-    def __str__(self):
-        return self.Name
-
-
 class Keywords(models.Model):
-    Name = models.CharField(max_length=2048, unique=True)
-    PersonId = models.ForeignKey(Persons, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, unique=True)
+    person = models.ForeignKey('Persons', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "keywords"
 
     def __str__(self):
-        return "{} ({})".format(self.Name, self.PersonId.Name)
-
-
-class PageQuerySet(models.QuerySet):
-    def all(self):
-        return self.values(SiteID__Name).count()
-
-    def use(self):
-        return self.filter(LastScanDate__isnull=True).count()
-
-    def not_use(self):
-        return self.filter(LastScanDate__isnull=False).count()
-# class SiteManager(models.Manager):
-#     def get_queryset(self):
-#         return SiteQuerySet(self.model, using=self._db)
-#
-#     def all(self):
-#         return self.get_queryset().all()
-
-
-class Sites(models.Model):
-    Name = models.CharField(max_length=256, unique=True)
-
-    def __str__(self):
-        return self.Name
+        return "{} ({})".format(self.name, self.person.name)
 
 
 class Pages(models.Model):
-    Url = models.CharField(max_length=2048, unique=True)
-    FoundDateTime = models.DateTimeField(auto_now_add=True)
-    LastScanDate = models.DateTimeField(blank=True, null=True)
-    SitesId = models.ForeignKey(Sites, on_delete=models.CASCADE)
+    url = models.CharField(max_length=255, unique=True)
+    site = models.ForeignKey('Sites', on_delete=models.CASCADE)
+    found_date_time = models.DateTimeField(auto_now_add=True)
+    last_scan_date = models.DateTimeField(blank=True, null=True)
 
-    objects = models.Manager()  # The default manager.
-    site_objects = PageQuerySet.as_manager()
+    class Meta:
+        db_table = "pages"
 
     def __str__(self):
-        return "{} ({})".format(self.Url, self.SitesId.Name)
+        return "{} ({})".format(self.url, self.site.name)
 
 
 class PersonPageRank(models.Model):
-    Rank = models.PositiveIntegerField(default=0)
-    PagesId = models.ForeignKey(Pages, on_delete=models.CASCADE)
-    PersonId = models.ForeignKey(Persons, on_delete=models.CASCADE)
+    person = models.ForeignKey('Persons', on_delete=models.CASCADE)
+    page = models.ForeignKey(Pages, on_delete=models.CASCADE)
+    rank = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = "person_page_rank"
 
     def __str__(self):
-        return "{} ({} {})".format(self.Rank, self.PersonId.Name, self.PagesId.Url)
+        return "{} ({} {})".format(self.rank, self.person.name, self.page.url)
 
 
+class Persons(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    class Meta:
+        db_table = "persons"
+
+    def __str__(self):
+        return self.name
+
+
+class Sites(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    class Meta:
+        db_table = "sites"
+
+    def __str__(self):
+        return self.name

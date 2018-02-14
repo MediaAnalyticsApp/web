@@ -1,0 +1,14 @@
+<tr>
+    <th>Сайт</th>
+    <th>Страница</th>
+    <th>Дата создания</th>
+    <th>Дата посещения</th>
+</tr>
+{% for object in object_list %}
+<tr>
+    <td>{{ object.site.name }}</td>
+    <td>{{ object.url }}</td>
+    <td>{{ object.found_date_time }}</td>
+    <td>{{ object.last_scan_date}}</td>
+</tr>
+{% endfor %}

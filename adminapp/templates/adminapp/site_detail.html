@@ -4,11 +4,12 @@
 <div class="objects_list left ajax">
     <div class="box site_link">
         <h3>Детальная инормация по сайтам</h3>
-        <table class="table site_link ajax_new">
-            {% include 'adminapp/includes/inc_detail.html' %}
-        </table>
         <br>
+        <table class="table site_link ajax_renew">
+             {% include 'adminapp/includes/inc_detail.html' %}
+        </table>
+        <hr>
+        <input type="button" value="Обновить">
     </div>
-    <input type="button" value="Обновить">
 </div>
 {% endblock %}

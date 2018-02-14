@@ -1,0 +1,26 @@
+{% extends 'adminapp/main.html' %}
+{% load staticfiles %}
+{% block main %}
+<div class="objects_list left ajax">
+    <div class="box site_link">
+        <h3>Детальная инормация по страницам сайтов сайтов</h3>
+        <br>
+        <table class="table site_link ajax_renew_view">
+            {% include 'adminapp/includes/inc_detail_view.html' %}
+        </table>
+        <form class="hide" action="" method="get" enctype="multipart/form-data">
+            <table class="table site_link">
+                <tr>
+                    {% for object in site %}
+                    <th>
+                        {{ object }}
+                    </th>
+                    {% endfor%}
+                </tr>
+            </table>
+            <hr>
+            <input type="submit" value="Обновить">
+        </form>
+    </div>
+</div>
+{% endblock %}

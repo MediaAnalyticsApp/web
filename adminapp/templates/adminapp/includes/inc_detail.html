@@ -1,16 +1,20 @@
 <tr>
-    <th><h4>Название сайта</h4></th>
-    <th><h4>Сcылок всего</h4></th>
-    <th><h4>Непосещенные ссылки</h4></th>
-    <th><h4>Посещенные ссылки</h4></th>
+    <th>Название сайта</th>
+    <th>Всего страниц</th>
+    <th>Непосещенные страницы</th>
+    <th>Посещенные страницы</th>
 </tr>
-{% for all, not_use, use in all_link %}
+{% for every, not_use, use in all_link %}
 <tr>
-    <td>{{ all.SitesId__Name }}</td>
-    <td>{{ all.Url__count }}</td>
-    <td>{{ not_use.Url__count }}</td>
-    <td>{{ use.Url__count }}</td>
+    <td>{{ every.site_id__name }}</td>
+    <td>{{ every.url__count }}</td>
+    <td>{{ not_use.url__count }}</td>
+    <td>{{ use.url__count }}</td>
 </tr>
 {% endfor %}
-
-
+<tr>
+    <th>Всего</th>
+    <th>{{ all_every }}</th>
+    <th>{{ all_not_use }}</th>
+    <th>{{ all_use }}</th>
+</tr>

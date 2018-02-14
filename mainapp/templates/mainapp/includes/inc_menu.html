@@ -13,7 +13,7 @@
         {% if user.is_superuser %}
         {% url 'myadmin:main' as auth_link %}
         <li>
-            {% if request.path == auth_link %}
+            {% if 'myadmin' in request.path %}
             <a href="{% url 'myadmin:main' %}" class="active">Админ</a>
             {% else %}
             <a href="{% url 'myadmin:main' %}">Админ</a>
