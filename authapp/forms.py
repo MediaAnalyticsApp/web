@@ -19,7 +19,8 @@ class UserLoginForm(AuthenticationForm):
 class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'password1', 'password2', 'email')
+        # fields = '__all__'
+        fields = ('username', 'first_name', 'password1', 'password2', 'email', 'is_superuser')
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)

@@ -185,7 +185,7 @@ body {
 }
 
 .main {
-    width: 1346px;
+    width: 1280px;
     margin: 0 auto;
     min-height: 100%;
     background-color: #eee;
@@ -321,7 +321,6 @@ h4 {
     line-height: 45px;
     color: #fff;
 }
-
 .front_menu ul {
     padding-left: 150px;
 }
@@ -331,10 +330,10 @@ h4 {
     line-height: 22px;
 }
 
+
 .objects_list {
     width: 914px;
 }
-
 .objects_list h3,
 .objects_list h4 {
     color: #666;
@@ -347,6 +346,7 @@ h4 {
 }
 
 .table td {
+    min-width: 500px;
     height: 20px;
     border: 1px solid #666;
     background-color: #fff;
@@ -359,13 +359,8 @@ h4 {
 }
 
 .table th {
-    min-width: 500px;
+    min-width: 450px;
     background-color: #aaa;
-    border: 1px solid #666;
-}
-
-.table.site_link th {
-    min-width: 100px;
     border: 1px solid #666;
 }
 
@@ -378,6 +373,10 @@ strong {
     color: #444;
 }
 
+.paginate {
+    margin: 200px;
+}
+
 .foo {
     height: 40px;
 }
@@ -388,6 +387,6 @@ footer {
     height: 40px;
     padding-top: 10px;
     border-top: 2px solid #949494;
-    width: 1346px;
+    width: 1260px;
     margin: -40px auto 0;
 }

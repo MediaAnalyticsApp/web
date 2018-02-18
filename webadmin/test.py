@@ -1,2 +1,3 @@
-if type(12) is not int:
-    print(True)
+new = 'qwe'
+new = new.copy()
+print(new)

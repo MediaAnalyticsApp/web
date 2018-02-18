@@ -1,15 +1,27 @@
 {% extends 'adminapp/main.html' %}
 {% load staticfiles %}
+{% load my_tags %}
 {% block main %}
-<div class="objects_list left ajax">
+<div class="objects_list left">
     <div class="box site_link">
         <h3>Детальная инормация по страницам сайтов сайтов</h3>
         <br>
-        <table class="table site_link ajax_renew_view">
-            {% include 'adminapp/includes/inc_detail_view.html' %}
-        </table>
-        <form class="hide" action="" method="get" enctype="multipart/form-data">
+        <form action="" method="get">
             <table class="table site_link">
+                <tr>
+                    <th>Сайт</th>
+                    <th>Страница</th>
+                    <th>Дата создания</th>
+                    <th>Дата посещения</th>
+                </tr>
+                {% for object in object_list %}
+                <tr>
+                    <td>{{ object.site.name }}</td>
+                    <td>{{ object.url }}</td>
+                    <td>{{ object.found_date_time }}</td>
+                    <td>{{ object.last_scan_date}}</td>
+                </tr>
+                {% endfor %}
                 <tr>
                     {% for object in site %}
                     <th>
@@ -19,8 +31,20 @@
                 </tr>
             </table>
             <hr>
-            <input type="submit" value="Обновить">
+            <div class="paginate">
+                {% if paginator.num_pages > 1 %}
+                {% if page_obj.has_previous %}
+                <a class="left_pag" href="?{% query_update request.GET 'page' page_obj.previous_page_number %}"><<</a>
+                {% endif %}
+                <span class="center_pag">{{ paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                <a class="right_pag" href="?{% query_update request.GET 'page' page_obj.next_page_number %}">>></a>
+                {% endif %}
+                {% endif %}
+            </div>
+            <input type="submit" value="Применить">
         </form>
     </div>
 </div>
 {% endblock %}
+

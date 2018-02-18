@@ -16,6 +16,8 @@ from django.http import JsonResponse
 from .resources import PagesResource
 # from django.shortcuts import get_object_or_404
 from .forms import PagesForm
+from django.core import serializers
+import re
 
 
 def main(request):
@@ -379,28 +381,6 @@ class SitesLinkView(ListView):
         return super().dispatch(*args, **kwargs)
 
 
-# def sites_link(request):
-#
-#     every = Pages.objects.all().values('site_id__name').annotate(Count('url'))
-#     not_use = Pages.objects.filter(last_scan_date__isnull=True).values('site_id__name').annotate(Count('url'))
-#     use = Pages.objects.filter(last_scan_date__isnull=False).values('site_id__name').annotate(Count('url'))
-#
-#     all_every = Pages.objects.all().count()
-#     all_not_use = Pages.objects.filter(last_scan_date__isnull=True).count()
-#     all_use = Pages.objects.filter(last_scan_date__isnull=False).count
-#
-#     all_link = zip(every, not_use,  use)
-#
-#     content = {
-#         'all_every': all_every,
-#         'all_not_use': all_not_use,
-#         'all_use': all_use,
-#         'all_link': all_link,
-#     }
-#
-#     return render(request, 'adminapp/site_detail.html', content)
-
-
 def links_renew(request):
 
     if request.is_ajax():
@@ -440,28 +420,6 @@ def export(request):
     return response
 
 
-class SiteDetail(ListView):
-    model = Pages
-    template_name = 'adminapp/site_detail_view.html'
-    fields = '__all__'
-
-    # def get_queryset(self):
-    #     # self.site = get_object_or_404(Sites, pk=self.kwargs['pk'])
-    #     qwe = Pages.objects.filter(site__pk=self.kwargs['pk']).order_by('url')
-    #     # print(qwe)
-    #     return qwe
-    #
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        site = Sites.objects.all()
-        context['site'] = site
-        return context
-
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
-
-
 def detail_renew(request, pk):
 
     if request.is_ajax():
@@ -477,17 +435,36 @@ def detail_renew(request, pk):
         return JsonResponse({'result': result})
 
 
-def site_detail_view(request):
-    page = Pages.objects.all()
-    form = PagesForm(request.GET)
-    if form.is_valid():
-        if form.cleaned_data['site']:
-            page = page.filter(site=form.cleaned_data['site'])
-        if form.cleaned_data['ordering_url']:
-            page = page.order_by(form.cleaned_data['ordering_url'])
-        if form.cleaned_data['ordering_found']:
-            page = page.order_by(form.cleaned_data['ordering_found'])
-        if form.cleaned_data['ordering_last']:
-            page = page.order_by(form.cleaned_data['ordering_last'])
-    context = {'object_list': page, 'site': form}
-    return render(request, 'adminapp/site_detail_view.html', context)
+class PageDetail(ListView):
+    model = Pages
+    template_name = 'adminapp/site_detail_view.html'
+    fields = '__all__'
+    paginate_by = 2
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form = ''
+
+    def get_queryset(self):
+        page = Pages.objects.all()
+        self.form = PagesForm(self.request.GET)
+        if self.form.is_valid():
+            if self.form.cleaned_data['site']:
+                page = page.filter(site=self.form.cleaned_data['site'])
+            if self.form.cleaned_data['ordering_url']:
+                page = page.order_by(self.form.cleaned_data['ordering_url'])
+            if self.form.cleaned_data['ordering_found']:
+                page = page.order_by(self.form.cleaned_data['ordering_found'])
+            if self.form.cleaned_data['ordering_last']:
+                page = page.order_by(self.form.cleaned_data['ordering_last'])
+        return page
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site'] = self.form
+        print(context)
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
